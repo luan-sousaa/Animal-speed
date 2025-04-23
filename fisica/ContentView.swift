@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var distancia: Float = 0
-    @State private var tempo: Float = 0
-    @State private var cor: Color = .gray
+    @State private var distancia: Double = 0
+    @State private var tempo: Double = 0
+    @State private var media: Double = 0
+    @State private var cor: Color = .green
     @State private var mostrar_imagem = false
     var body: some View {
         ZStack {
@@ -24,9 +25,9 @@ struct ContentView: View {
                 TextField("Enter you distance", value: $distancia, format: .number)
                     .textFieldStyle(.roundedBorder)
                     .keyboardType(.numberPad)
-                   
+                
                     .padding()
-                    
+                
                 Text("Digite o tempo : (H)")
                 
                 TextField("Enter your time", value: $tempo, format: .number)
@@ -36,15 +37,20 @@ struct ContentView: View {
                 
                 Button("Calcular") {
                     mostrar_imagem = true
+                    calcular_media(distancia: distancia , tempo: tempo)
+                    
                 }
                 .buttonStyle(.borderedProminent)
+                
+                Text("Média  \(media)")
                 if mostrar_imagem
                 {
+                    
                     Image("caramelo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 200, height: 200)
-                        
+                    
                 }
                 
                 
@@ -52,8 +58,13 @@ struct ContentView: View {
                 
             }
         }
-       
         
+        
+        
+    }
+    func calcular_media(distancia: Double, tempo: Double) -> Double {
+        media = Double(distancia) / Double(tempo)
+        return media
     }
 }
 
